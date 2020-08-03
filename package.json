@@ -1,0 +1,26 @@
+{
+  "name": "pinkie",
+  "version": "0.0.0",
+  "description": "server-pays-fees non-custodial HNS domain wallet",
+  "main": "lib/pinkie.js",
+  "scripts": {
+    "build": "scripts/build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pinheadmz/pinkie.git"
+  },
+  "author": "Matthew Zipkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pinheadmz/pinkie/issues"
+  },
+  "homepage": "https://github.com/pinheadmz/pinkie#readme",
+  "devDependencies": {
+    "bpkg": "^0.6.0",
+    "uglify-es": "^3.3.9"
+  },
+  "peerDependencies": {
+    "hsd": "handshake-org/hsd"
+  }
+}
