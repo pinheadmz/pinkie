@@ -121,3 +121,5 @@ const view = new CoinView();
 view.addCoin(Coin.fromJSON(coin));
 const tx = mtx.toTX();
 assert(tx.verify(view));
+
+console.log('Raw TX:\n', tx.toHex());
