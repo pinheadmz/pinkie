@@ -6,6 +6,7 @@ const {FullNode, Network, Output, Coin, TX} = require('hsd');
 const network = Network.get('regtest');
 
 const HNSWallet = require('../lib/hns-wallet');
+const backend = require('../lib/crypto-node.js');
 
 const nodeOptions = {
   network: network.type,
@@ -55,7 +56,7 @@ const name = 'test1';
 
   // Generate wallet and receive name
   const mainnet = false;
-  const wallet = HNSWallet.generate(mainnet);
+  const wallet = HNSWallet.generate(mainnet, backend);
   const receive = wallet.address.toString(wallet.network);
   console.log('Receive Address:\n', addr);
 

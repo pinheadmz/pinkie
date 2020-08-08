@@ -4,6 +4,7 @@ const assert = require('assert');
 const {resource, Coin, CoinView} = require('hsd');
 
 const HNSWallet = require('../lib/hns-wallet');
+const backend = require('../lib/crypto-node.js');
 
 // Entered by user
 const password = 'correcthorsebatterystaple';
@@ -34,7 +35,7 @@ const coin = {
 
 // Create wallet and inspect properties
 const mainnet = false;
-const wallet = HNSWallet.generate(mainnet);
+const wallet = HNSWallet.generate(mainnet, backend);
 
 const phrase = wallet.phrase;
 console.log('Wallet Phrase:\n', phrase);
@@ -62,7 +63,7 @@ const obj = wallet.encryptSeed(password);
 console.log('Encrypted Seed:\n', obj);
 
 // Decrypt seed with password and create wallet
-const wallet2 = HNSWallet.fromEncryptedPhrase(obj, password, mainnet);
+const wallet2 = HNSWallet.fromEncryptedPhrase(obj, password, mainnet, backend);
 console.log('Wallet From Encrypted Phrase:\n', wallet2);
 
 // Check
@@ -83,7 +84,7 @@ console.log('Encrypted Seed HNS Resource json:\n');
 console.dir(json, {depth: null});
 
 // Create wallet from resource JSON
-const wallet3 = HNSWallet.fromHNSResourceJSON(json, password, mainnet);
+const wallet3 = HNSWallet.fromHNSResourceJSON(json, password, mainnet, backend);
 console.log('Wallet from HNS Resource json:\n', wallet3);
 
 // Check
