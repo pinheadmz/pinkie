@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const {NodeClient, WalletClient} = require('hs-client');
+const {NodeClient, WalletClient} = require('hsd/node_modules/hs-client');
 const {FullNode, Network, Output, Coin, TX} = require('hsd');
 const network = Network.get('regtest');
 
@@ -42,7 +42,7 @@ const name = 'test1';
   await nodeClient.execute('generatetoaddress', [7, addr]);
 
   console.log('Bidding...');
-  await walletClient.execute('sendbid', [name, 0, 0]);
+  await walletClient.execute('sendbid', [name, 0, 10000]);
   await nodeClient.execute('generatetoaddress', [7, addr]);
 
   console.log('Revealing...');
