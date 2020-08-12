@@ -58,69 +58,71 @@ console.log('Receive Address:\n', addr);
 // Pretend like we are already the name owner
 coin.address = addr;
 
-// Encrypt wallet seed phrase with password
-const obj = wallet.encryptSeed(password);
-console.log('Encrypted Seed:\n', obj);
+(async () => {
+  // Encrypt wallet seed phrase with password
+  const obj = await wallet.encryptSeed(password);
+  console.log('Encrypted Seed:\n', obj);
 
-// Decrypt seed with password and create wallet
-const wallet2 = HNSWallet.fromEncryptedPhrase(obj, password, mainnet, backend);
-console.log('Wallet From Encrypted Phrase:\n', wallet2);
+  // Decrypt seed with password and create wallet
+  const wallet2 = await HNSWallet.fromEncryptedPhrase(obj, password, mainnet, backend);
+  console.log('Wallet From Encrypted Phrase:\n', wallet2);
 
-// Check
-assert.strictEqual(wallet.phrase, wallet2.phrase);
-assert.strictEqual(
-  wallet.address.toString(wallet.network),
-  wallet2.address.toString(wallet2.network)
-);
+  // Check
+  assert.strictEqual(wallet.phrase, wallet2.phrase);
+  assert.strictEqual(
+    wallet.address.toString(wallet.network),
+    wallet2.address.toString(wallet2.network)
+  );
 
-// Create HNS resource blob with "pinkie" TXT record
-// (namebase "Blockchain DNS advanced settings" format)
-const res = wallet.getEncryptedSeedResource(password);
-console.log('Encrypted Seed HNS Resource hex:\n', res);
+  // Create HNS resource blob with "pinkie" TXT record
+  // (namebase "Blockchain DNS advanced settings" format)
+  const res = await wallet.getEncryptedSeedResource(password);
+  console.log('Encrypted Seed HNS Resource hex:\n', res);
 
-// Decode HNS resource back into JSON
-const json = resource.Resource.decode(Buffer.from(res, 'hex')).toJSON();
-console.log('Encrypted Seed HNS Resource json:\n');
-console.dir(json, {depth: null});
+  // Decode HNS resource back into JSON
+  const json = resource.Resource.decode(Buffer.from(res, 'hex')).toJSON();
+  console.log('Encrypted Seed HNS Resource json:\n');
+  console.dir(json, {depth: null});
 
-// Create wallet from resource JSON
-const wallet3 = HNSWallet.fromHNSResourceJSON(json, password, mainnet, backend);
-console.log('Wallet from HNS Resource json:\n', wallet3);
+  // Create wallet from resource JSON
+  const wallet3 = await HNSWallet.fromHNSResourceJSON(json, password, mainnet, backend);
+  console.log('Wallet from HNS Resource json:\n', wallet3);
 
-// Check
-assert.strictEqual(wallet.phrase, wallet3.phrase);
-assert.strictEqual(
-  wallet.address.toString(wallet.network),
-  wallet3.address.toString(wallet3.network)
-);
+  // Check
+  assert.strictEqual(wallet.phrase, wallet3.phrase);
+  assert.strictEqual(
+    wallet.address.toString(wallet.network),
+    wallet3.address.toString(wallet3.network)
+  );
 
-// Add TXT
-const res2 = wallet3.addTXT(
-  [
-    'sia',
-    'IAC6CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w'
-  ]
-);
-assert(wallet3.resource.records.length === 2);
-console.dir(res2, {depth: null});
+  // Add TXT
+  const res2 = wallet3.addTXT(
+    [
+      'sia',
+      'IAC6CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w'
+    ]
+  );
+  assert(wallet3.resource.records.length === 2);
+  console.dir(res2, {depth: null});
 
-// Update TXT
-const res3 = wallet3.addOrReplaceTXT(
-  [
-    'sia',
-    'AAC1Dqp524qMH5wD5rzuGxYmwm64Sko1GR7tQ4Sas9q3gg'
-  ]
-);
-assert(wallet3.resource.records.length === 2);
-console.dir(res3, {depth: null});
+  // Update TXT
+  const res3 = wallet3.addOrReplaceTXT(
+    [
+      'sia',
+      'AAC1Dqp524qMH5wD5rzuGxYmwm64Sko1GR7tQ4Sas9q3gg'
+    ]
+  );
+  assert(wallet3.resource.records.length === 2);
+  console.dir(res3, {depth: null});
 
-// Sign SIGHASH_SINGLE and verify
-const mtx = wallet3.createUpdateFromCoinJSON(coin);
-console.log(mtx);
-mtx.check();
-const view = new CoinView();
-view.addCoin(Coin.fromJSON(coin));
-const tx = mtx.toTX();
-assert(tx.verify(view));
+  // Sign SIGHASH_SINGLE and verify
+  const mtx = wallet3.createUpdateFromCoinJSON(coin);
+  console.log(mtx);
+  mtx.check();
+  const view = new CoinView();
+  view.addCoin(Coin.fromJSON(coin));
+  const tx = mtx.toTX();
+  assert(tx.verify(view));
 
-console.log('Raw TX:\n', tx.toHex());
+  console.log('Raw TX:\n', tx.toHex());
+})();
