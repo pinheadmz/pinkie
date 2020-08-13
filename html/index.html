@@ -10,6 +10,7 @@
   </head>
   <body>
     <div class="container" style="text-align: center">
+      <br>
 
       <div class="row">
         <div class="column generate">
@@ -39,8 +40,21 @@
         </div>
       </div>
 
+      <hr>
 
-
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter Skylink:</strong><br>
+          <input type="text" id="skylink">
+          <button class="button" type="submit" onclick="update()">
+            Update
+          </button><br>
+          <strong>Pinkie Swear TX (hex):</strong><br>
+          <div id="txhex" class="data"></div>
+          <strong>Pinkie Swear TX (JSON):</strong><br>
+          <div id="txjson" class="data"></div>
+        </div>
+      </div>
 
     </div>
 

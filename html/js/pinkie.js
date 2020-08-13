@@ -3,6 +3,31 @@
 
 let wallet;
 
+
+// Returned from server
+const testcoin = {
+  version: 0,
+  height: 1000,
+  value: 0,
+  address: '<placeholder>',
+  covenant: {
+    type: 10,
+    action: 'FINALIZE',
+    items: [
+      'd961dcb58511997dd253661a1b4de22be1bd92071a507152194f742ff008ffbf',
+      'a6330000',
+      '6d616e6f735f5f7468655f68616e64735f6f665f66617465',
+      '00',
+      '00000000',
+      '02000000',
+      '00000000000000e32502495ef20a3f485aa5786c9637766df60bfee9ce487c2f'
+    ]
+  },
+  coinbase: false,
+  hash: 'ef698c8798236acf4a90a08591369f5b0aaaf16b54bc8c6082bd73cd6fb2d4e8',
+  index: 0
+};
+
 function generate() {
   wallet = HNSWallet.generate(true, browserCrypto);
 
@@ -36,16 +61,15 @@ async function encrypt() {
     JSON.stringify(wallet.resource, null, 2);
 }
 
+async function update() {
+  const link = document.getElementById('skylink').value;
 
+  wallet.addOrReplaceTXT(['sia', link]);
 
+  testcoin.address = wallet.address;
+  const tx = wallet.createUpdateFromCoinJSON(testcoin);
 
-
-
-
-
-// (async () => {
-//   const w = HNSWallet.generate(true, browserCrypto);
-//   console.log('wallet:', w);
-//   const res = await w.getEncryptedSeedResource(prompt('Enter password:'));
-//   console.log('resource hex:', res);
-// })();
+  document.getElementById('txhex').innerHTML = tx.encode().toString('hex');
+  document.getElementById('txjson').innerHTML =
+    JSON.stringify(tx.getJSON(), null, 2);
+}
