@@ -1,5 +1,13 @@
 
-.generate span, .encrypt span {
+.generate span {
   font-family: monospace;
   font-size: 1.5em;
+}
+
+.data {
+  font-family: monospace;
+  font-size: 1.5em;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

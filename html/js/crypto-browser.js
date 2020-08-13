@@ -58,5 +58,10 @@ const browserCrypto = {
         ciphertext
       );
     }
+  },
+
+  toBase64: (bytes) => {
+    const buf = new Uint8Array(bytes);
+    return bytesToBase64(buf);
   }
 };

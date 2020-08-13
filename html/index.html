@@ -2,9 +2,9 @@
   <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="css/normalize.css">;
-    <link rel="stylesheet" href="css/milligram.css">;
-    <link rel="stylesheet" href="css/pinkie.css">;
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/milligram.css">
+    <link rel="stylesheet" href="css/pinkie.css">
 
     <title>Pinkie Swear</title>
   </head>
@@ -33,9 +33,9 @@
             Encrypt
           </button><br>
           <strong>HNS Resource (hex):</strong><br>
-          <span id="hex"></span><br>
+          <div id="hex" class="data"></div><br>
           <strong>HNS Resource (json):</strong><br>
-          <span id="json"></span><br>
+          <div id="json" class="data"></div><br>
         </div>
       </div>
 
@@ -44,6 +44,7 @@
 
     </div>
 
+    <script type="text/javascript" src="js/base64.js"></script>
     <script type="text/javascript" src="js/crypto-browser.js"></script>
     <script type="text/javascript" src="js/hnswallet-browser.js"></script>
     <script type="text/javascript" src="js/pinkie.js"></script>
