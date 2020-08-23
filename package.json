@@ -22,5 +22,9 @@
   },
   "peerDependencies": {
     "hsd": "handshake-org/hsd"
+  },
+  "dependencies": {
+    "bfile": "^0.2.2",
+    "bweb": "^0.1.10"
   }
 }
