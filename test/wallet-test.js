@@ -64,7 +64,12 @@ coin.address = addr;
   console.log('Encrypted Seed:\n', obj);
 
   // Decrypt seed with password and create wallet
-  const wallet2 = await HNSWallet.fromEncryptedPhrase(obj, password, mainnet, backend);
+  const wallet2 = await HNSWallet.fromEncryptedPhrase(
+    obj,
+    password,
+    mainnet,
+    backend
+  );
   console.log('Wallet From Encrypted Phrase:\n', wallet2);
 
   // Check
@@ -85,7 +90,12 @@ coin.address = addr;
   console.dir(json, {depth: null});
 
   // Create wallet from resource JSON
-  const wallet3 = await HNSWallet.fromHNSResourceJSON(json, password, mainnet, backend);
+  const wallet3 = await HNSWallet.fromHNSResourceJSON(
+    json,
+    password,
+    mainnet,
+    backend
+  );
   console.log('Wallet from HNS Resource json:\n', wallet3);
 
   // Check

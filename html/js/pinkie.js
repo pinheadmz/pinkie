@@ -3,7 +3,6 @@
 
 let wallet;
 
-
 // Returned from server
 const testcoin = {
   version: 0,
