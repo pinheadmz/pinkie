@@ -12,55 +12,19 @@
     <div class="container" style="text-align: center">
       <br>
 
-      <div class="row">
-        <div class="column generate">
-          <button class="button" type="submit" onclick="generate()">
-            Generate
-          </button><br>
-          <strong>Seed Phrase:</strong><br>
-          <span id="phrase"></span><br>
-          <strong>Receive Address:</strong><br>
-          <span id="address"></span>
-        </div>
-      </div>
-
+      <h1>
+        <a href="index.html">
+          Pinkie-Swear
+        </a>
+      </h1>
       <hr>
 
-      <div class="row">
-        <div class="column encrypt">
-          <strong>Enter Passphrase:</strong><br>
-          <input type="password" id="passphrase">
-          <button class="button" type="submit" onclick="encrypt()">
-            Encrypt
-          </button><br>
-          <strong>HNS Resource (hex):</strong><br>
-          <div id="hex" class="data"></div><br>
-          <strong>HNS Resource (json):</strong><br>
-          <div id="json" class="data"></div><br>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="row">
-        <div class="column encrypt">
-          <strong>Enter Skylink:</strong><br>
-          <input type="text" id="skylink">
-          <button class="button" type="submit" onclick="update()">
-            Update
-          </button><br>
-          <strong>Pinkie Swear TX (hex):</strong><br>
-          <div id="txhex" class="data"></div>
-          <strong>Pinkie Swear TX (JSON):</strong><br>
-          <div id="txjson" class="data"></div>
-        </div>
-      </div>
-
+      <strong>
+        If this is your first time using Pinkie-Swear you must
+        <a href="begin.html">begin the protocol here</a>.<br>
+        If you have already set up your Pinkie-Swear,
+        <a href="access.html">access your domain here</a>.
     </div>
 
-    <script type="text/javascript" src="js/base64.js"></script>
-    <script type="text/javascript" src="js/crypto-browser.js"></script>
-    <script type="text/javascript" src="js/hnswallet-browser.js"></script>
-    <script type="text/javascript" src="js/pinkie.js"></script>
   </body>
 </html>

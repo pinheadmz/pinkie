@@ -11,3 +11,13 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+textarea {
+  width: 50%;
+  height: 6em;
+}
+
+img {
+  width: 50%;
+  border: 2px solid black;
+}

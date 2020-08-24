@@ -48,8 +48,8 @@ const browserCrypto = {
         plaintext
       );
     },
-    decipher: (ciphertext, key, iv) => {
-      return window.crypto.subtle.decrypt(
+    decipher: async (ciphertext, key, iv) => {
+      const buffer = await window.crypto.subtle.decrypt(
         {
           name: 'AES-GCM',
           iv: iv
@@ -57,6 +57,10 @@ const browserCrypto = {
         key,
         ciphertext
       );
+      buffer.toString = () => {
+        return new TextDecoder('ascii').decode(buffer);
+      };
+      return buffer;
     }
   },
 

@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/milligram.css">
+    <link rel="stylesheet" href="css/pinkie.css">
+
+    <title>Pinkie Swear</title>
+  </head>
+  <body>
+    <div class="container" style="text-align: center">
+      <br>
+
+      <h1>
+        <a href="index.html">
+          Pinkie-Swear
+        </a>
+      </h1>
+      <hr>
+
+      <h2> Step 1: Generate or Import Seed </h2>
+      <div class="row">
+        <div class="column generate">
+          <button class="button" type="submit" onclick="generate()">
+            Generate
+          </button> <strong>or paste your seed phrase:</strong><br>
+          <textarea
+            id="phrase"
+            class="data"
+            oninput="derive()"
+            autocomplete="off"
+          ></textarea><br>
+          <strong>Receive Address:</strong><br>
+          <span id="address"></span>
+        </div>
+      </div>
+      <hr>
+
+      <h2> Step 2: Encrypt With Passphrase</h2>
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter Passphrase:</strong><br>
+          <input type="password" id="passphrase" autocomplete="off">
+          <button class="button" type="submit" onclick="encrypt()">
+            Encrypt
+          </button><br>
+          <strong>HNS Resource JSON, for <code>hsw-rpc sendupate</code>:</strong><br>
+          <div id="json" class="data"></div><br>
+          <strong>HNS Resource HEX, for Namebase Advanced DNS Settings:</strong><br>
+          <div id="hex" class="data"></div><br>
+          <i>Enter this hex in Namebase Domain Manager:</i><br>
+          <img src="i/namebase-advanced-dns.png"><br><br>
+          <strong>Once this update is confirmed, transfer the HNS name to the
+            address you see above. <br> Once that transfer is complete, you may begin
+            using Pinkie-Swear:<br>
+          <a href="access.html">Access Pinkie-Swear</a></strong>
+          <hr>
+        </div>
+      </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/base64.js"></script>
+    <script type="text/javascript" src="js/crypto-browser.js"></script>
+    <script type="text/javascript" src="js/hnswallet-browser.js"></script>
+    <script type="text/javascript" src="js/pinkie.js"></script>
+  </body>
+</html>

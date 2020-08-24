@@ -2,40 +2,26 @@
 'use strict';
 
 let wallet;
-
-// Returned from server
-const testcoin = {
-  version: 0,
-  height: 1000,
-  value: 0,
-  address: '<placeholder>',
-  covenant: {
-    type: 10,
-    action: 'FINALIZE',
-    items: [
-      'd961dcb58511997dd253661a1b4de22be1bd92071a507152194f742ff008ffbf',
-      'a6330000',
-      '6d616e6f735f5f7468655f68616e64735f6f665f66617465',
-      '00',
-      '00000000',
-      '02000000',
-      '00000000000000e32502495ef20a3f485aa5786c9637766df60bfee9ce487c2f'
-    ]
-  },
-  coinbase: false,
-  hash: 'ef698c8798236acf4a90a08591369f5b0aaaf16b54bc8c6082bd73cd6fb2d4e8',
-  index: 0
-};
+const mainnet = false;
+const backend = browserCrypto;
 
 function generate() {
-  wallet = HNSWallet.generate(true, browserCrypto);
+  wallet = HNSWallet.generate(mainnet, backend);
 
-  let phrase = wallet.phrase;
-  phrase = phrase.split(' ');
-  phrase[11] += "<br>";
-  phrase = phrase.join(' ');
-  document.getElementById('phrase').innerHTML = phrase;
+  const phrase = wallet.phrase;
+  document.getElementById('phrase').value = phrase;
   document.getElementById('address').innerHTML = wallet.address;
+}
+
+function derive() {
+  try {
+    const phrase = document.getElementById('phrase').value;
+    wallet = HNSWallet.fromPhrase(phrase, mainnet, backend);
+    document.getElementById('address').innerHTML = wallet.address;
+  } catch (e) {
+    document.getElementById('address').innerHTML =
+      `<span style="color:red">${e.message}</span>`;
+  }
 }
 
 async function encrypt() {
@@ -56,8 +42,32 @@ async function encrypt() {
 
   const hex = await wallet.getEncryptedSeedResource(passphrase);
   document.getElementById('hex').innerHTML = hex;
-  document.getElementById('json').innerHTML =
-    JSON.stringify(wallet.resource, null, 2);
+  document.getElementById('json').innerHTML = JSON.stringify(wallet.resource);
+}
+
+async function decrypt() {
+  const json = document.getElementById('json').innerHTML;
+  const passphrase = document.getElementById('passphrase').value;
+
+  if (passphrase.length < 20) {
+    alert('Paspshrase must be at least 20 characters long');
+    return;
+  }
+
+  document.getElementById('address').innerHTML = 'Decrypting...';
+
+  try {
+    wallet = await HNSWallet.fromHNSResourceJSON(
+      JSON.parse(json),
+      passphrase,
+      mainnet,
+      backend
+    );
+    document.getElementById('address').innerHTML = wallet.address;
+  } catch (e) {console.log(e)
+    document.getElementById('address').innerHTML =
+      `<span style="color:red">${e.message}</span>`;
+  }
 }
 
 async function update() {
@@ -71,4 +81,53 @@ async function update() {
   document.getElementById('txhex').innerHTML = tx.encode().toString('hex');
   document.getElementById('txjson').innerHTML =
     JSON.stringify(tx.getJSON(), null, 2);
+}
+
+async function publish() {
+  const hex = document.getElementById('hex').innerHTML;
+  const name = document.getElementById('name').value;
+
+  const http = new XMLHttpRequest();
+  const url = 'update';
+  const params = `tx=${hex}&name=${name}`;
+
+  http.open('POST', url, true);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  http.onreadystatechange = function() {
+    document.getElementById('publish').disabled = true;
+
+    if (http.readyState === 4) {
+      document.getElementById('response').innerHTML = http.response;
+      // if (http.status === 200)
+      //   ;
+      // else
+      //   ;
+    }
+  };
+
+  http.send(params);
+}
+
+async function retrieve() {
+  const name = document.getElementById('name').value;
+
+  const http = new XMLHttpRequest();
+  const url = 'nameresource';
+  const params = `?name=${name}`;
+
+  http.open('GET', url + params, true);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  http.onreadystatechange = function() {
+    if (http.readyState === 4) {
+      document.getElementById('json').innerHTML = http.response;
+      // if (http.status === 200)
+      //   ;
+      // else
+      //   ;
+    }
+  };
+
+  http.send(null);
 }

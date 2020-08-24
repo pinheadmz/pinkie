@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/milligram.css">
+    <link rel="stylesheet" href="css/pinkie.css">
+
+    <title>Pinkie Swear</title>
+  </head>
+  <body>
+    <div class="container" style="text-align: center">
+      <br>
+
+      <h1>
+        <a href="index.html">
+          Pinkie-Swear
+        </a>
+      </h1>
+      <hr>
+
+      <h2> Step 1: Retrieve Resource From Blockchain </h2>
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter HNS Domain Name:</strong><br>
+          <input type="text" id="name" autocomplete="off">
+          <button class="button" type="submit" onclick="retrieve()">
+            Retrieve
+          </button><br>
+          <strong>HNS Resource JSON:</strong><br>
+          <div id="json" class="data"></div><br>
+        </div>
+      </div>
+      <hr>
+
+      <h2> Step 2: Decrypt With Passphrase</h2>
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter Passphrase:</strong><br>
+          <input type="password" id="passphrase" autocomplete="off">
+          <button class="button" type="submit" onclick="decrypt()">
+            Decrypt
+          </button><br>
+          <strong>Wallet address:</strong><br>
+          <div id="address" class="data"></div><br>      
+          <hr>
+        </div>
+      </div>
+<!--
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter Skylink:</strong><br>
+          <input type="text" id="skylink" autocomplete="off">
+          <button class="button" type="submit" onclick="update()">
+            Update
+          </button><br>
+          <strong>Pinkie Swear TX (hex):</strong><br>
+          <div id="txhex" class="data"></div>
+          <strong>Pinkie Swear TX (JSON):</strong><br>
+          <div id="txjson" class="data"></div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="column encrypt">
+          <strong>Enter HNS Name:</strong><br>
+          <input type="text" id="name" autocomplete="off">
+          <button class="button" type="submit" id="publish" onclick="publish()">
+            Publish
+          </button><br>
+          <strong>Server response:</strong><br>
+          <div id="response" class="data"></div>
+        </div>
+      </div>
+-->
+    </div>
+
+    <script type="text/javascript" src="js/base64.js"></script>
+    <script type="text/javascript" src="js/crypto-browser.js"></script>
+    <script type="text/javascript" src="js/hnswallet-browser.js"></script>
+    <script type="text/javascript" src="js/pinkie.js"></script>
+  </body>
+</html>
