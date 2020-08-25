@@ -34,7 +34,7 @@
       </div>
       <hr>
 
-      <h2> Step 2: Decrypt With Passphrase</h2>
+      <h2> Step 2: Decrypt With Passphrase </h2>
       <div class="row">
         <div class="column encrypt">
           <strong>Enter Passphrase:</strong><br>
@@ -47,16 +47,17 @@
           <hr>
         </div>
       </div>
-<!--
+
+      <h2> Step 3: Update Skylink </h2>
       <div class="row">
         <div class="column encrypt">
           <strong>Enter Skylink:</strong><br>
-          <input type="text" id="skylink" autocomplete="off">
-          <button class="button" type="submit" onclick="update()">
+          <input type="text" id="skylink" autocomplete="off" value="sia://">
+          <button class="button" type="submit" id="update" onclick="update()">
             Update
           </button><br>
-          <strong>Pinkie Swear TX (hex):</strong><br>
-          <div id="txhex" class="data"></div>
+          <strong>Current owner coin:</strong><br>
+          <div id="owner" class="data"></div>
           <strong>Pinkie Swear TX (JSON):</strong><br>
           <div id="txjson" class="data"></div>
         </div>
@@ -64,18 +65,6 @@
 
       <hr>
 
-      <div class="row">
-        <div class="column encrypt">
-          <strong>Enter HNS Name:</strong><br>
-          <input type="text" id="name" autocomplete="off">
-          <button class="button" type="submit" id="publish" onclick="publish()">
-            Publish
-          </button><br>
-          <strong>Server response:</strong><br>
-          <div id="response" class="data"></div>
-        </div>
-      </div>
--->
     </div>
 
     <script type="text/javascript" src="js/base64.js"></script>

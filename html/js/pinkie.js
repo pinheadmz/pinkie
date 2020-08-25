@@ -75,16 +75,41 @@ async function decrypt() {
 }
 
 async function update() {
+  const name = document.getElementById('name').value;
   const link = document.getElementById('skylink').value;
 
-  wallet.addOrReplaceTXT(['sia', link]);
+  const parts = link.split('://');
+  if (parts[0] !== 'sia') {
+    alert('Not a valid Skylink');
+    return;
+  }
 
-  testcoin.address = wallet.address;
-  const tx = wallet.createUpdateFromCoinJSON(testcoin);
+  wallet.updateSkylink(link);
 
-  document.getElementById('txhex').innerHTML = tx.encode().toString('hex');
-  document.getElementById('txjson').innerHTML =
-    JSON.stringify(tx.getJSON(), null, 2);
+  // Get current owner coin from server
+  let owner;
+  let http = new XMLHttpRequest();
+  const url = 'nameinfo';
+  const params = `?name=${name}`;
+
+  http.open('GET', url + params, true);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+  http.onreadystatechange = function() {
+    document.getElementById('update').disabled = true;
+
+    if (http.readyState === 4) {
+      owner = http.response;
+      document.getElementById('owner').innerHTML = owner;
+      // if (http.status === 200)
+      //   ;
+      // else
+      //   ;
+    }
+  };
+
+  http.send(params);
+  console.log(owner);
 }
 
 async function publish() {
