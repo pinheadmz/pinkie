@@ -10,16 +10,18 @@ function generate() {
 
   const phrase = wallet.phrase;
   document.getElementById('phrase').value = phrase;
-  document.getElementById('address').innerHTML = wallet.address;
+  document.getElementById('address1').innerHTML = wallet.address;
+  document.getElementById('address2').innerHTML = wallet.address;
 }
 
 function derive() {
   try {
     const phrase = document.getElementById('phrase').value;
     wallet = HNSWallet.fromPhrase(phrase, mainnet, backend);
-    document.getElementById('address').innerHTML = wallet.address;
+    document.getElementById('address1').innerHTML = wallet.address;
+    document.getElementById('address2').innerHTML = wallet.address;
   } catch (e) {
-    document.getElementById('address').innerHTML =
+    document.getElementById('address1').innerHTML =
       `<span style="color:red">${e.message}</span>`;
   }
 }
@@ -54,7 +56,7 @@ async function decrypt() {
     return;
   }
 
-  document.getElementById('address').innerHTML = 'Decrypting...';
+  document.getElementById('address1').innerHTML = 'Decrypting...';
 
   try {
     wallet = await HNSWallet.fromHNSResourceJSON(
@@ -62,10 +64,12 @@ async function decrypt() {
       passphrase,
       mainnet,
       backend
-    );
-    document.getElementById('address').innerHTML = wallet.address;
-  } catch (e) {console.log(e)
-    document.getElementById('address').innerHTML =
+    ).catch((e) => {
+      throw new Error('Decryption Failed.');
+    });
+    document.getElementById('address1').innerHTML = wallet.address;
+  } catch (e) {
+    document.getElementById('address1').innerHTML =
       `<span style="color:red">${e.message}</span>`;
   }
 }

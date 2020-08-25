@@ -1,6 +1,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/milligram.css">
@@ -32,7 +33,7 @@
             autocomplete="off"
           ></textarea><br>
           <strong>Receive Address:</strong><br>
-          <span id="address"></span>
+          <span id="address1"></span>
         </div>
       </div>
       <hr>
@@ -51,8 +52,9 @@
           <div id="hex" class="data"></div><br>
           <i>Enter this hex in Namebase Domain Manager:</i><br>
           <img src="i/namebase-advanced-dns.png"><br><br>
-          <strong>Once this update is confirmed, transfer the HNS name to the
-            address you see above. <br> Once that transfer is complete, you may begin
+          <strong>Once this update is confirmed, transfer the HNS name to your
+            receive address: <span id="address2"></span>.<br>
+            Once that transfer is finalized, you may begin
             using Pinkie-Swear:<br>
           <a href="access.html">Access Pinkie-Swear</a></strong>
           <hr>
