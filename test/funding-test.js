@@ -79,11 +79,8 @@ const name = 'test1';
   console.log('Coin:\n', owner);
 
   // Update TXT - SIGHASH_SINGLE
-  const expected = [
-    'sia',
-    'IAC6CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w'
-  ];
-  wallet.addOrReplaceTXT(expected);
+  const expected = 'sia://33333C6CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w';
+  wallet.updateSkylink(expected);
   const mtx = wallet.createUpdateFromCoinJSON(owner);
   console.log('SIGHASH_SINGLE MTX:\n', mtx);
 

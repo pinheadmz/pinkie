@@ -106,21 +106,15 @@ coin.address = addr;
   );
 
   // Add TXT
-  const res2 = wallet3.addTXT(
-    [
-      'sia',
-      'IAC6CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w'
-    ]
+  const res2 = wallet3.updateSkylink(
+    'sia://1111116CkhNYuWZqMVr1gob1B6tPg4MrBGRzTaDvAIAeu9A9w'
   );
   assert(wallet3.resource.records.length === 2);
   console.dir(res2, {depth: null});
 
   // Update TXT
-  const res3 = wallet3.addOrReplaceTXT(
-    [
-      'sia',
-      'AAC1Dqp524qMH5wD5rzuGxYmwm64Sko1GR7tQ4Sas9q3gg'
-    ]
+  const res3 = wallet3.updateSkylink(
+    'sia://222222qp524qMH5wD5rzuGxYmwm64Sko1GR7tQ4Sas9q3gg'
   );
   assert(wallet3.resource.records.length === 2);
   console.dir(res3, {depth: null});
