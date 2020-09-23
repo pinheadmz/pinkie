@@ -2,7 +2,7 @@
 'use strict';
 
 let wallet;
-const mainnet = false;
+const mainnet = true;
 const backend = browserCrypto;
 
 function generate() {
