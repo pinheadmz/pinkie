@@ -87,29 +87,55 @@ async function update() {
   wallet.updateSkylink(link);
 
   // Get current owner coin from server
-  let owner;
-  let http = new XMLHttpRequest();
-  const url = 'nameinfo';
-  const params = `?name=${name}`;
+  const http1 = new XMLHttpRequest();
+  const url1 = 'nameinfo';
+  const params1 = `?name=${name}`;
 
-  http.open('GET', url + params, true);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-  http.onreadystatechange = function() {
+  http1.open('GET', url1 + params1, true);
+  http1.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  http1.onreadystatechange = function() {
     document.getElementById('update').disabled = true;
 
-    if (http.readyState === 4) {
-      owner = http.response;
-      document.getElementById('owner').innerHTML = owner;
-      // if (http.status === 200)
-      //   ;
-      // else
-      //   ;
+    if (http1.readyState === 4) {
+      const owner = JSON.parse(http1.response);
+      document.getElementById('owner').innerHTML = JSON.stringify(owner);
+      if (http1.status === 200) {
+        // Generate the partially-signed update transaction
+        const mtx = wallet.createUpdateFromCoinJSON(owner);
+        document.getElementById('txjson').innerHTML = JSON.stringify(
+          mtx.getJSON(wallet.network)
+        );
+
+        const http2 = new XMLHttpRequest();
+        const url2 = 'update';
+        const params2 = `name=${name}&tx=${mtx.toHex()}`;
+
+        http2.open('POST', url2, true);
+        http2.setRequestHeader(
+          'Content-type',
+          'application/x-www-form-urlencoded'
+        );
+        http2.onreadystatechange = function() {
+          document.getElementById('update').disabled = true;
+
+          if (http2.readyState === 4) {
+            const status = JSON.parse(http2.response);
+            alert(`Response from server: ${JSON.stringify(status)}`);
+            // if (http.status === 200)
+            //   ;
+            // else
+            //   ;
+          }
+        };
+
+        http2.send(params2);
+      } else {
+        alert(JSON.stringify(http1));
+      }
     }
   };
 
-  http.send(params);
-  console.log(owner);
+  http1.send(params1);
 }
 
 async function publish() {
