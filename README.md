@@ -12,7 +12,7 @@ The encryption currently relies on 10,000,000 iterations of PBKDF2 with a 128-bi
 salt and SHA256 PRF. Passwords should be at least 20 characters. Decryption takes
 about 10 seconds in Firefox and about 5 seconds in nodejs.
 
-The protocol works as follows:
+## The protocol works as follows:
 
 ### Step 1: Generate key, encrypt key
 
@@ -47,3 +47,41 @@ that contains the updated HNS resource and signs it using the decrypted private 
 and sighash flags `SINGLE | ANYONECANPAY`.
 - Client sends this partially-signed transaction to the server as a seriazlied hex string.
 - Server adds an additional input and output to pay the fee for this transaction, signs it with `SIGHASH_ALL` and broadcasts.
+
+## Installation:
+
+```
+git clone https://github.com/pinheadmz/pinkie
+cd pinkie
+npm i
+```
+
+The Pinkie Swear server requires a peer dependency of
+[`hsd`](https://github.com/handshake-org/hsd). The `hsd` library must be
+available in global `node_modules` on your system and it is assumed that an
+`hsd` full node is running with a sufficiently funded wallet. To configure a
+Pinkie Swear for mainnet,
+[see this commit](https://github.com/pinheadmz/pinkie/commit/6efdbdcc3a68bf5c845df19062c2129b348c6271).
+
+Additional `hsd` wallet and full node configuration settings are documented
+[here](https://hsd-dev.org/guides/config.html) and in the
+[API-docs](https://hsd-dev.org/api-docs/).
+
+## Running:
+
+```
+node bin/pinkie.js
+```
+
+This command will start the webserver (by default on regtest at http://127.0.0.1:8000)
+that serves the client front-end and also communicates with the `hsd` full node
+on the back-end.
+
+## Warning:
+
+The wallet-interfacing server does not have any checks or rate-limits yet and
+overall security of the coinjoin protocol has not yet been audited.
+
+## Demonstration:
+
+https://youtu.be/7WIBXMVQe5U
