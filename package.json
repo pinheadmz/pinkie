@@ -4,7 +4,8 @@
   "description": "server-pays-fees non-custodial HNS domain wallet",
   "main": "lib/pinkie.js",
   "scripts": {
-    "build": "scripts/build.sh"
+    "build": "scripts/build.sh",
+    "build-dev": "scripts/build-dev.sh"
   },
   "repository": {
     "type": "git",
