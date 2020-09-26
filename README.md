@@ -67,6 +67,27 @@ Additional `hsd` wallet and full node configuration settings are documented
 [here](https://hsd-dev.org/guides/config.html) and in the
 [API-docs](https://hsd-dev.org/api-docs/).
 
+## Building:
+
+The client code is written in the context of nodejs but can be compiled for the
+browser using `bpkg` (included as dependency). It can be compiled with or without
+being minified/uglified for either smaller transport, or debugging. Paranoid users
+should use the dev mode if they are worried about interference from the uglify plugin.
+
+These commands compile the code from `lib/` into a git-ignored file
+`html/js/hnswallet-browser.js` which is requested by the html page.
+
+Either way, large modules from the `hsd` library are included in the payload
+for wallet structure, transaction primitives, and message signing and it is a large file.
+
+```
+# compact
+npm run build
+
+# debug / auditable
+npm run build-dev
+```
+
 ## Running:
 
 ```
